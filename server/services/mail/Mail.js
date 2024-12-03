@@ -6,6 +6,7 @@ import config from "../../config.js";
 let transporter = nodemailer.createTransport({
   host: config.SMTP_HOST,
   port: config.SMTP_PORT,
+  secure: true,
   auth: {
     user: config.SMTP_USER,
     pass: config.SMTP_PASS,
@@ -24,7 +25,7 @@ transporter.use("compile", hbs(handlebarOptions));
 
 function sendOTPMail(email, otp) {
   var mailOptions = {
-    from: "Rohit Kumar <noreply@aboutrohit.in>",
+    from: `Rohit Kumar <${config.SMTP_USER}>`,
     to: email,
     subject: "OTP to Reset Password on Admin Dashboard",
     template: "otp",
@@ -45,7 +46,7 @@ function sendOTPMail(email, otp) {
 
 function sendSubscription(email) {
   var mailOptions = {
-    from: "Rohit Kumar <noreply@aboutrohit.in>",
+    from: `Rohit Kumar <${config.SMTP_USER}>`,
     to: email,
     subject: "Thanks for Subscribing Me.!",
     template: "subscribe",
